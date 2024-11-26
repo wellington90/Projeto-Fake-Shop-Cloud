@@ -46,7 +46,8 @@ DB_PORT => Porta de conexão com o banco de dados PostgreSQL.
 kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 ´´´
 
-## Estrutura da aplicação
+
+# Estrutura da aplicação
 
 Esse é o diagrama do projeto de pipeline e monitoramento:
 
