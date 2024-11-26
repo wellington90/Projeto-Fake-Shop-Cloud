@@ -40,18 +40,22 @@ DB_NAME => Nome do banco de dados PostgreSQL.
 
 DB_PORT => Porta de conexão com o banco de dados PostgreSQL.
 
+
+## Pegar password grafana da aplicação
+´´´
+kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+´´´
+
+
 ## Estrutura da aplicação
 
 Esse é o diagrama do projeto de pipeline e monitoramento:
 
 ![Diagrama do Projeto](docs/diagrama.drawio.png)
 
-´´´
-kubectl get secret --namespace default grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
-´´´
 
 -----------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------
+
 -----------------------------------------------------------------------------------------------------------------
 
 Automatizando o Deploy de uma Aplicação Web com Pipeline CI/CD, Docker, AWS EKS e Monitoramento com Grafana e Prometheus
