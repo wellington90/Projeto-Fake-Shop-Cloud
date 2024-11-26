@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: fakeshop
 spec: 
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: fakeshop
@@ -23,16 +23,28 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: DB_HOST
-              value: postgre
-            - name: DB_USER
-              value: fakeshop
-            - name: DB_PASSWORD
-              value: Pg1234
-            - name: DB_NAME
-              value: fakeshop
-            - name: FLASK_APP
-              value: index.py
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: fakeshop-db-credentials
+                key: DB_HOST
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: fakeshop-db-credentials
+                key: DB_USER
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: fakeshop-db-credentials
+                key: DB_PASSWORD
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: fakeshop-db-credentials
+                key: DB_NAME
+          - name: FLASK_APP
+            value: index.py
 ---
 apiVersion: v1
 kind: Service

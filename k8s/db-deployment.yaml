@@ -19,11 +19,20 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_DB
-              value: fakeshop
+              valueFrom:
+                secretKeyRef:
+                  name: postgre-credentials
+                  key: POSTGRES_DB
             - name: POSTGRES_USER
-              value: fakeshop
+              valueFrom:
+                secretKeyRef:
+                  name: postgre-credentials
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: Pg1234
+              valueFrom:
+                secretKeyRef:
+                  name: postgre-credentials
+                  key: POSTGRES_PASSWORD
 ---
 apiVersion: v1
 kind: Service
