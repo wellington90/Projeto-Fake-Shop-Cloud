@@ -86,8 +86,7 @@ Este processo não só aumentou a confiabilidade e escalabilidade da aplicação
 
 Realização do desafio feito pelo Fabricio Veronez na Formação DevOps Pro
 
-Obrigada por essas aulas, baita reforço de conhecimento.
+Obrigado por essas aulas, baita reforço de conhecimento.
 
-Link do repositório: https://lnkd.in/d3ZFHvwk
 
-hashtag#DevOps hashtag#AWS hashtag#EKS hashtag#Kubernetes hashtag#CI_CD hashtag#GitHubActions hashtag#Docker hashtag#Prometheus hashtag#Grafana hashtag#Monitoramento hashtag#CloudComputing hashtag#Automação hashtag#DesafioDevopsPro
+#DevOps #AWS #EKS #Kubernetes #CI_CD #GitHubActions #Docker #Prometheus #Grafana #Monitoramento #CloudComputing #Automação #DesafioDevopsPro
