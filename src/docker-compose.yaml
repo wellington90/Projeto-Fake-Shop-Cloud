@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: flask_app
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=ecommerce
+      - DB_PASSWORD=Pg1234
+      - DB_NAME=ecommerce
+      - DB_PORT=5432
+      - PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus_metrics
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ecommerce
+      POSTGRES_PASSWORD: Pg1234
+      POSTGRES_DB: ecommerce
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:

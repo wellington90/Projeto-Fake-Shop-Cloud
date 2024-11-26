@@ -1,0 +1,47 @@
+# Deployment da Aplicação Web
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fakeshop
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fakeshop
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+        prometheus.io/path: "/metrics" 
+      labels:
+        app: fakeshop
+    spec:
+      containers:
+        - name: fakeshop
+          image: w3ll1n9t0n/fake-shop:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
+              value: postgre
+            - name: DB_USER
+              value: fakeshop
+            - name: DB_PASSWORD
+              value: Pg1234
+            - name: DB_NAME
+              value: fakeshop
+            - name: FLASK_APP
+              value: index.py
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fakeshop
+spec:
+  selector:
+    app: fakeshop
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: LoadBalancer
