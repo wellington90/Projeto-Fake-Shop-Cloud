@@ -58,4 +58,4 @@ jobs:
               ./k8s/db-secret.yaml
               ./k8s/grafana/deploy-prometheus.yaml
            images: |
-              fabricioveronez/fake-shop:v${{ github.run_number }}
+              w3ll1n9t0n/fake-shop:v${{ github.run_number }}
