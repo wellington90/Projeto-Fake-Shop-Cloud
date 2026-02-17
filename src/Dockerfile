@@ -6,7 +6,8 @@ WORKDIR /app
 
 # Copia o arquivo requirements.txt e instala as dependências
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copia o restante da aplicação para o diretório de trabalho
 COPY . /app
