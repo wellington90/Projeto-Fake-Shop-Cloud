@@ -1,29 +1,33 @@
-# Usa uma imagem oficial do Python como base
-FROM python:3.12-slim
+# syntax=docker/dockerfile:1
 
-# Define o diretório de trabalho
+FROM python:3.12-slim AS builder
+
+WORKDIR /build
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && pip wheel --no-cache-dir --wheel-dir /build/wheels -r requirements.txt
+
+FROM python:3.12-slim AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus_metrics \
+    FLASK_APP=index.py
+
 WORKDIR /app
 
-# Copia o arquivo requirements.txt e instala as dependências
+COPY --from=builder /build/wheels /wheels
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir --no-index --find-links=/wheels -r requirements.txt \
+    && rm -rf /wheels
 
-# Copia o restante da aplicação para o diretório de trabalho
 COPY . /app
 
-# Cria a pasta para armazenar as métricas do Prometheus
-RUN mkdir -p /tmp/prometheus_metrics
+RUN mkdir -p /tmp/prometheus_metrics \
+    && chmod +x /app/entrypoint.sh
 
-# Configura a variável de ambiente para Prometheus
-ENV PROMETHEUS_MULTIPROC_DIR=/tmp/prometheus_metrics
-
-# Configura a variável de ambiente do Flask
-ENV FLASK_APP=index.py
-
-RUN chmod +x /app/entrypoint.sh
-
-# Expõe a porta que o Flask irá usar
 EXPOSE 5000
 
-# Define o entrypoint para executar o script de entrada
 ENTRYPOINT ["./entrypoint.sh"]

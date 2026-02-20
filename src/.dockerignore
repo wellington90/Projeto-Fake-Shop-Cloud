@@ -1,38 +1,14 @@
-# Ignorar arquivos e pastas desnecessários
-
-# Diretórios de controle de versão
 .git
 .gitignore
-
-# Arquivos de configuração do editor/IDE
-.vscode/
-.idea/
-*.swp
-
-# Logs e arquivos temporários
-*.log
-*.tmp
-*.pid
-*.bak
-
-# Arquivos de cache do sistema
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.egg-info/
-
-# Dependências locais instaladas
-node_modules/
-dist/
-build/
-
-# Arquivos do Docker e cache de build
-Dockerfile*
-docker-compose*
-
-# Credenciais e arquivos sensíveis
+*.swp
+*.log
 .env
-*.key
-*.crt
-*.pem
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
